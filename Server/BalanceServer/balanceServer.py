@@ -16,7 +16,7 @@ server.setblocking(False)
 #设置可重用端口
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 #设置ip和端口并绑定
-server_address = ('192.168.20.184', 12345)
+server_address = ('121.42.144.117', 12347)
 server.bind(server_address)
 #监听并设置监听队列大小
 server.listen(10)
@@ -37,7 +37,7 @@ result = []
 mp = {}
 
 #设置连接主服务器的客户端
-host = '192.168.20.184'
+host = '121.42.144.117'
 port = 10000
 addr = (host, port)
 tcpMaster = socket.socket(socket.AF_INET, socket.SOCK_STREAM);

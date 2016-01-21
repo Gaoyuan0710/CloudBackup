@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include <Server.h>
+#include "Server.h"
 #include <sys/sendfile.h>
 #include <sys/stat.h>
 #include <json/json.h>
@@ -191,10 +191,12 @@ Run()
                 printf("%s\n", buffer);
                 std::string jjson(buffer);
                 std::cout << "jjson:" << jjson << std::endl;
-                if(reader.parse(jjson, value))
+                if(bool b = reader.parse(buffer, value))
                 {
+                    std::cout << "b:" << b << std::endl;
                     if(!value["mark"].isNull())
                     {
+                        std::cout << "-------------------+++++" << std::endl;
                         /* obtain mark */
                         mark = value["mark"].asInt();
                         /* obtain file md5 */
@@ -202,7 +204,7 @@ Run()
                         std::cout << mark << " " << md5 << std::endl; 
                     }
                 }
-
+                std::cout << "-------------------------------" << std::endl;
                 /* judge mark */
                 if(mark == 1)
                 {
