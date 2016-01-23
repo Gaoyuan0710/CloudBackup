@@ -1,0 +1,3 @@
+WorkServerIp = 121.42.144.117
+WorkServerPort = 10001
+

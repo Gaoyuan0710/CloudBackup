@@ -24,17 +24,28 @@
 #include"Mission.cpp"
 #include"ThreadPool.hpp"
 
+#include "./common/config.h"
+
 //#define MaxClientConnection 2
 #define MAXUSERS            1000
 #define LOGDIR "log"
 #define MKDIR "mkdir -p "LOGDIR
-std::string       WorkIp = "121.42.144.117";
-std::string       WorkPort = "10001";
+
+std::string       WorkIp;
+std::string       WorkPort;
 MyDataBase        DataBase;        //数据库
 
 
 void InitServer()
 {
+    const char config_file[] = "conf/config.txt";
+
+    Config config_settings(config_file);
+
+    WorkIp = config_settings.ReadConf("WorkServerIp", WorkIp);
+    WorkPort = config_settings.ReadConf("WorkServerPort", WorkPort);
+
+    std::cout << "WorkIp : " << WorkIp << " WorkPort : " << WorkPort << std::endl;
     system(MKDIR);
     google::InitGoogleLogging("log");
     google::SetStderrLogging(google::INFO); 
@@ -43,66 +54,75 @@ void InitServer()
     google::SetLogDestination(google::WARNING,LOGDIR"/WARNING_");   //设置 google::WARNING 级别的日志存储路径和文件名前缀
     google::SetLogDestination(google::ERROR,LOGDIR"/ERROR_");   //设置 google::ERROR 级别的日志存储路径和文件名前缀
     google::InstallFailureSignalHandler();
+
+
 }
 template<typename T>
-void RecvFromClient( Epoll & e , const int & socketfd , ThreadPool<T> & pool , Mission  mission[]) {
+void RecvFromClient( Epoll & e , const int & socket_fd_ , ThreadPool<T> & pool , 
+        std::map<int, Mission *>  &socket_mission_map) {
     char buf[TCP_BUFFER_SIZE];
     while(1) {
         memset( buf , '\0' , TCP_BUFFER_SIZE );
-        int ret = recv( socketfd , buf , TCP_BUFFER_SIZE - 1 , 0);
+        int ret = recv( socket_fd_ , buf , TCP_BUFFER_SIZE - 1 , 0);
         if( 0 > ret )  {
             if((errno == EAGAIN ) || (errno == EWOULDBLOCK )) {
                 break;
             }
-            close(socketfd);
+            close(socket_fd_);
             break;
         }
         else if( 0 == ret ) {
-            close( socketfd );
+            close( socket_fd_ );
         }
         else{
             //判断用户的行为
-            //UserRequest(buf,socketfd);
-            strcpy(mission[socketfd].buf,buf);
-//            mission[socketfd].socketfd = socketfd;
-            mission[socketfd].MissionInit(socketfd);
-            pool.AddTask(mission[socketfd]);
+            //UserRequest(buf,socket_fd_);
+            Mission *mission = new Mission();
+            strcpy(mission->buf,buf);
+//            mission[socket_fd_].socket_fd_ = socket_fd_;
+
+            mission->MissionInit(socket_fd_);
+            socket_mission_map.insert(pair<int, Mission *>(socket_fd_, mission));
+            pool.AddTask(*mission);
             std::cout<<"------\n";
         }
     }
 }
 
 template<typename T>
-void EpollMission( Epoll & e , ThreadPool<T> & pool ,char * ip , char * port , Mission  mission[])  {
+void EpollMission( Epoll & e , ThreadPool<T> & pool ,char * ip , char * port , 
+        std::map <int, Mission *>  &socket_mission_map)  {
     int num;
 //  int socketfds[MaxClientConnection];
     e.CreateTcpSocket();
     e.RegisterSocket();
     while(1) {
-        num = e.SetEpollWait();
+        num = e.setEpollFd();
         for(int i = 0 ; i < num ; ++i )  {
-            int socketfd = e.events[i].data.fd;
-            if( socketfd == e.socketfd) {
+            int socket_fd_ = e.events[i].data.fd;
+            if( socket_fd_ == e.socket_fd_) {
                 struct sockaddr_in client_address;
                 socklen_t client_addrlength = sizeof( client_address );
-                int connfd = accept( e.socketfd , (struct sockaddr *)&client_address , &client_addrlength);
+                int connfd = accept( e.socket_fd_ , (struct sockaddr *)&client_address , &client_addrlength);
                 if( connfd >= 0 )  {
                     std::cout << "Already connect!" << std::endl; //system log
                 }
-                e.addfd(e.epollfd , connfd);
+                e.AddFd(e.epoll_fd_ , connfd);
             }
             else if( e.events[i].events & EPOLLIN )  {
-                RecvFromClient( e , socketfd , pool , mission);
+                RecvFromClient( e , socket_fd_ , pool , socket_mission_map);
             }
 
         }
 
     }
-    close(e.socketfd);
+    close(e.socket_fd_);
 }
 
 //保存登录用户的ID
 int      Mission::Users[MAXUSERS+3] = {0};
+std::map <int, int> user_fd_map;
+
 
 int main( int argc , char * argv[] )  {
 
@@ -111,12 +131,15 @@ int main( int argc , char * argv[] )  {
         exit(0);
     }
 
+    InitServer();
     pthread_t EpollThreadID;
-    Mission * mission = new Mission[MAXUSERS + 3];
+    std::map <int, Mission *> socket_mission_map;
+    
+    //Mission * mission = new Mission[MAXUSERS + 3];
     ThreadPool<Mission> pool(2);
 
     Epoll e(argv[1] , argv[2]);
-    EpollMission(e , pool ,argv[1] , argv[2] , mission);
+    EpollMission(e , pool ,argv[1] , argv[2] , socket_mission_map);
 
     return EXIT_SUCCESS;
 }

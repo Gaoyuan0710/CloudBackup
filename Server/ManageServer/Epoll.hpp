@@ -1,11 +1,3 @@
-/*************************************************************************
-    > File Name: epoll.hpp
-    > Author: lewin
-    > Mail: lilinhan1303@gmail.com
-    > Company:  Xiyou Linux Group
-    > Created Time: 2015年07月27日 星期一 08时40分51秒
- ************************************************************************/
-
 #include<iostream>
 #include<string>
 #include<cstdlib>
@@ -33,67 +25,67 @@
 
 class Epoll{
     public:
-        Epoll(char * ip , char * port):epollfd(-1) , ServerIP(ip) , Port(port)  {}
+        Epoll(char * ip , char * port):epoll_fd_(-1) , server_ip_(ip) , server_port_(port)  {}
         ~Epoll() {}
 
-        int SetNonBlocking ( int fd )  {
+        int setNonBlock ( int fd )  {
             int old_option = fcntl( fd , F_GETFL );
             int new_option = old_option | O_NONBLOCK;
             fcntl( fd , F_SETFL , new_option);
             return old_option;
         }
 
-        void addfd( int epollfd , int fd )  {
+        void AddFd( int epoll_fd, int fd )  {
             epoll_event event;
             event.data.fd = fd ;
             event.events = EPOLLIN | EPOLLOUT | EPOLLERR;
-            epoll_ctl( epollfd , EPOLL_CTL_ADD , fd , &event );
-            SetNonBlocking( fd );
+            epoll_ctl( epoll_fd, EPOLL_CTL_ADD , fd , &event );
+            setNonBlock( fd );
         }
 
         void CreateTcpSocket(  )  {
-            int port = atoi(Port);
+            int port = atoi(server_port_);
             struct sockaddr_in address;
             bzero( &address , sizeof(address));
             address.sin_family = AF_INET;
-            inet_pton( AF_INET , ServerIP , &address.sin_addr);
+            inet_pton( AF_INET , server_ip_ , &address.sin_addr);
             address.sin_port = htons( port );
 
-            if((socketfd = socket( PF_INET , SOCK_STREAM , 0)) < 0 )  {
+            if((socket_fd_ = socket( PF_INET , SOCK_STREAM , 0)) < 0 )  {
                 std::cout << "Create Tcp Socket Error! "  << std::endl;
                 return;
             }
-            if((bind(socketfd , (struct sockaddr*)&address , sizeof( address ))) == -1)  {
+            if((bind(socket_fd_ , (struct sockaddr*)&address , sizeof( address ))) == -1)  {
                 std::cout << "Tcp Socket Bind Error!" << std::endl;
                 return;
             }
-            if((listen( socketfd , LISTEN_NUMBER)) == -1)  {
+            if((listen( socket_fd_ , LISTEN_NUMBER)) == -1)  {
                 std::cout << "Socket Listen Error!" << std::endl;
                 return;
             }
         }
 
         void RegisterSocket()  {
-            if((epollfd = epoll_create(LISTEN_NUMBER)) == -1 )  {
+            if((epoll_fd_ = epoll_create(LISTEN_NUMBER)) == -1 )  {
                 std::cout << "Create Epollfd Error!" << std::endl;
                 return;
             }
-            addfd( epollfd , socketfd );
+            AddFd( epoll_fd_ , socket_fd_ );
         }
 
-        int SetEpollWait()  {
+        int setEpollFd()  {
             int num;
-            if((num = epoll_wait( epollfd , events , MAX_EVENT_NUMBER , -1)) < 0 )  {
+            if((num = epoll_wait( epoll_fd_ , events , MAX_EVENT_NUMBER , -1)) < 0 )  {
                 std::cout << "Create Epollfd Error!" << std::endl;
             }
             return num;
         }
 
     public:
-        int epollfd;
-        int socketfd; //监听用
-        char * ServerIP;
-        char * Port;
+        int epoll_fd_;
+        int socket_fd_; //监听用
+        char * server_ip_;
+        char * server_port_;
         epoll_event events[MAX_EVENT_NUMBER];
 
 };

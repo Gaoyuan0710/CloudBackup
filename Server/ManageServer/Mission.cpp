@@ -48,12 +48,12 @@ class Mission{
 
         void MissionInit(int sock)
         {
-            socketfd = sock;
-            Uid = Users[socketfd];
+            socket_fd_ = sock;
+            Uid = Users[socket_fd_];
         }
 
         //验证账户密码任务
-        int AccountPasswd(Json::Value & root , int & socketfd) {
+        int AccountPasswd(Json::Value & root , int & socket_fd_) {
             std::string UserName , Passwd, rootFolder;
             UserName = root["UserName"].asString();
             Passwd = root["Passwd"].asString();
@@ -61,7 +61,7 @@ class Mission{
             if(ret >= 1)
             {
                 //登录成功
-                Users[socketfd] = ret;
+                Users[socket_fd_] = ret;
                 Uid = ret;
                 std::cout<<"log Uid:"<<Uid<<std::endl;
                 //获取根目录文件
@@ -71,7 +71,7 @@ class Mission{
                 root["Folder"] = Json::Value("/");
                 strcpy(buf, root.toStyledString().c_str());
                 std::cout<<"logsu :"<<rootFolder<<std::endl;
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 1;
             }
             else if(ret==0)
@@ -79,7 +79,7 @@ class Mission{
                 //账号错误
                 root["status"] = Json::Value(1);
                 strcpy(buf,root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 0;
             }
             else
@@ -87,13 +87,13 @@ class Mission{
                 //密码错误
                 root["status"] = Json::Value(2);
                 strcpy(buf,root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return -1;
             }
         }
 
         //注册用户
-        int Regiester(Json::Value & root , int & socketfd)  {
+        int Regiester(Json::Value & root , int & socket_fd_)  {
             std::string UserName , Passwd , Email;
             UserName = root["UserName"].asString();
             Passwd = root["Passwd"].asString();
@@ -106,7 +106,7 @@ class Mission{
                 //注册成功
                 root["status"] = Json::Value(0);
                 strcpy(buf, root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 1;
             }
             else if(ret==0)
@@ -114,7 +114,7 @@ class Mission{
                 //用户已存在
                 root["status"] = Json::Value(1);
                 strcpy(buf,root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 0;
             }
             else if(ret==2)
@@ -122,7 +122,7 @@ class Mission{
                 //邮箱已被占用
                 root["status"] = Json::Value(2);
                 strcpy(buf,root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 2;
             }
             else
@@ -134,16 +134,16 @@ class Mission{
         }
 
         //进入目录
-        void  DirFiles(Json::Value root , int & socketfd)  {
+        void  DirFiles(Json::Value root , int & socket_fd_)  {
             std::string  folder,AllFiles;
             folder = root["Folder"].asString();
             AllFiles = DataBase.DirFiles(Uid,folder);
             root["AllFiles"] = Json::Value(AllFiles);
             strcpy(buf,root.toStyledString().c_str());
-            send(socketfd,buf,strlen(buf),0);
+            send(socket_fd_,buf,strlen(buf),0);
         }
         //创建新目录
-        int CreateNewDir(Json::Value root , int &  socketfd) {
+        int CreateNewDir(Json::Value root , int &  socket_fd_) {
             std::string DirName;
             DirName = root["UserFilePath"].asString();
             if( 1 ==DataBase.CreateNewDir(DirName)) {
@@ -152,7 +152,7 @@ class Mission{
             return -1;
         }
         //重命名文件或目录
-        int RenameFileName(Json::Value root , int & socketfd) {
+        int RenameFileName(Json::Value root , int & socket_fd_) {
             std::string OldName , NewName;
             OldName = root["OldName"].asString();
             NewName = root["NewName"].asString();
@@ -162,7 +162,7 @@ class Mission{
             return -1;
         }
         //删除文件或目录
-        int DeleteFileORDir(Json::Value root , int & socketfd)  {
+        int DeleteFileORDir(Json::Value root , int & socket_fd_)  {
             std::string File;
             File = root["UserFilePath"].asString();
             if( 1 == DataBase.DeleteFileORDir(File))  {
@@ -172,7 +172,7 @@ class Mission{
         }
 
         //上传文件
-        int UploadFile(Json::Value root , int & socketfd)  {
+        int UploadFile(Json::Value root , int & socket_fd_)  {
             std::cout<<"start uid:"<<Uid<<std::endl;
             std::cout<<root.toStyledString()<<std::endl;
             std::string MD5,UserFilePath,File,FilePath;
@@ -203,17 +203,17 @@ class Mission{
                 //秒传
                 root["Have"] = Json::Value(1);
                 strcpy(buf,root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 1;
             }
             else if(ret == 0)
             {
                 //返回子服务器信息
                 root["Ip"] = Json::Value(WorkIp);
-                root["Port"] = Json::Value(WorkPort);
+                root["server_port_"] = Json::Value(WorkPort);
                 root["Have"] = Json::Value(0);
                 strcpy(buf,root.toStyledString().c_str());
-                send(socketfd,buf,strlen(buf),0);
+                send(socket_fd_,buf,strlen(buf),0);
                 return 0;
             }
             else if(ret == 2)
@@ -224,7 +224,7 @@ class Mission{
         }
 
         //下载文件
-        void DownloadFile(Json::Value root , int & socketfd)  {
+        void DownloadFile(Json::Value root , int & socket_fd_)  {
 
             std::string UserFilePath , ServerIp , FileSize,FileMd5;
             UserFilePath = root["Path"].asString();
@@ -242,18 +242,18 @@ class Mission{
             }
             mysql_free_result(res);
             root["Ip"] = Json::Value(ServerIp);   //子服务器Ip
-            root["Port"] = Json::Value(WORKPORT); //子服务器端口
+            root["server_port_"] = Json::Value(WORKPORT); //子服务器端口
             root["Size"] = Json::Value(FileSize);
             root["Md5"] = Json::Value(FileMd5);
 
             strcpy(buf,root.toStyledString().c_str());
             std::cout<<buf<<std::endl;
             //给客户端发过去
-            send(socketfd , buf , strlen(buf) , 0);
+            send(socket_fd_ , buf , strlen(buf) , 0);
         }
 
         //监控文件
-        int MonitorFile(Json::Value root , int & socketfd)  {
+        int MonitorFile(Json::Value root , int & socket_fd_)  {
             std::string UserFilePath , UserFileSize , ServerFilePath , MD5;
             int flag;
             UserFilePath = root["UserFileSize"].asString();
@@ -269,7 +269,7 @@ class Mission{
         }
 
         //恢复文件
-        void RestoreFile(Json::Value root , int & socketfd)  {
+        void RestoreFile(Json::Value root , int & socket_fd_)  {
             Json::Value croot;
             std::string UserFilePath , ServerFilePath;
             UserFilePath = root["UserFilePath"].asString();
@@ -278,10 +278,10 @@ class Mission{
             //给客户端发过去
             std::string s = croot.toStyledString();
             const char * buf = s.c_str();
-            send(socketfd , (void *)buf , sizeof(buf) , 0);
+            send(socket_fd_ , (void *)buf , sizeof(buf) , 0);
         }
 
-        void Banlance(Json::Value root,int & socketfd)
+        void Banlance(Json::Value root,int & socket_fd_)
         {
             std::cout<<root.toStyledString();
             WorkIp = root["ip"].asString();
@@ -304,25 +304,28 @@ class Mission{
             {
                 case 0:
                     std::cout<<"Banlance"<<std::endl;
-                    Banlance(root, socketfd);break;
-                case 1:AccountPasswd(root , socketfd);break;
-                case 2:Regiester(root , socketfd);break;
-                case 3:DirFiles(root , socketfd);break;
-                case 4:CreateNewDir(root , socketfd);break;
-                case 5:RenameFileName(root , socketfd);break;
-                case 6:DeleteFileORDir(root , socketfd);break;
-                case 7:UploadFile(root , socketfd);break;
-                case 8:DownloadFile(root, socketfd);break;
-                case 9:MonitorFile(root , socketfd);break;
-                case 10:RestoreFile(root , socketfd);break;
+                    Banlance(root, socket_fd_);break;
+                case 1:AccountPasswd(root , socket_fd_);break;
+                case 2:Regiester(root , socket_fd_);break;
+                case 3:DirFiles(root , socket_fd_);break;
+                case 4:CreateNewDir(root , socket_fd_);break;
+                case 5:RenameFileName(root , socket_fd_);break;
+                case 6:DeleteFileORDir(root , socket_fd_);break;
+                case 7:UploadFile(root , socket_fd_);break;
+                case 8:DownloadFile(root, socket_fd_);break;
+                case 9:MonitorFile(root , socket_fd_);break;
+                case 10:RestoreFile(root , socket_fd_);break;
             }
         }
     public:
 //        MyDataBase db[MaxClientConnection];
         char    buf[1024];
-        int     socketfd;
+        int     socket_fd_;
         int     Uid;      // 用户数据库ID
     private:
         static int Users[];  //保存登录用户的ID
+//        static std::map<int, int> socket_fd_map_;
+//        static std::map<int, int> user_id_map_;
+
 };
 
