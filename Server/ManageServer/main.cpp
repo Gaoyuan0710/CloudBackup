@@ -1,10 +1,3 @@
-/*************************************************************************
-  > File Name: Main.cpp
-  > Author: lewin
-  > Mail: lilinhan1303@gmail.com
-  > Company:  Xiyou Linux Group
-  > Created Time: 2015年08月05日 星期三 10时48分15秒
- ************************************************************************/
 #include<iostream>
 #include<string>
 #include<cstdlib>
@@ -24,17 +17,33 @@
 #include<mutex>
 #include<condition_variable>
 #include<atomic>
+
+#include <glog/logging.h>
+
 #include"Epoll.hpp"
 #include"Mission.cpp"
 #include"ThreadPool.hpp"
 
 //#define MaxClientConnection 2
 #define MAXUSERS            1000
-
+#define LOGDIR "log"
+#define MKDIR "mkdir -p "LOGDIR
 std::string       WorkIp = "121.42.144.117";
 std::string       WorkPort = "10001";
 MyDataBase        DataBase;        //数据库
 
+
+void InitServer()
+{
+    system(MKDIR);
+    google::InitGoogleLogging("log");
+    google::SetStderrLogging(google::INFO); 
+
+    google::SetLogDestination(google::INFO,LOGDIR"/INFO_"); //设置 google::INFO 级别的日志存储路径和文件名前缀
+    google::SetLogDestination(google::WARNING,LOGDIR"/WARNING_");   //设置 google::WARNING 级别的日志存储路径和文件名前缀
+    google::SetLogDestination(google::ERROR,LOGDIR"/ERROR_");   //设置 google::ERROR 级别的日志存储路径和文件名前缀
+    google::InstallFailureSignalHandler();
+}
 template<typename T>
 void RecvFromClient( Epoll & e , const int & socketfd , ThreadPool<T> & pool , Mission  mission[]) {
     char buf[TCP_BUFFER_SIZE];
@@ -98,7 +107,7 @@ int      Mission::Users[MAXUSERS+3] = {0};
 int main( int argc , char * argv[] )  {
 
     if(argc < 3) {
-        std::cout << "参数错误!" << std::endl;
+        LOG(ERROR) << "Wrong argv";
         exit(0);
     }
 
