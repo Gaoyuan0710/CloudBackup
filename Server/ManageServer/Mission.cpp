@@ -34,8 +34,8 @@
 #define WORKPORT            "10001"
 
 extern MyDataBase  DataBase;
-extern std::string WorkIp;
-extern std::string WorkPort;
+extern std::string work_ip;
+extern std::string work_port;
 
 class Mission{
     public:
@@ -209,8 +209,8 @@ class Mission{
             else if(ret == 0)
             {
                 //返回子服务器信息
-                root["Ip"] = Json::Value(WorkIp);
-                root["server_port_"] = Json::Value(WorkPort);
+                root["Ip"] = Json::Value(work_ip);
+                root["server_port_"] = Json::Value(work_port);
                 root["Have"] = Json::Value(0);
                 strcpy(buf,root.toStyledString().c_str());
                 send(socket_fd_,buf,strlen(buf),0);
@@ -284,9 +284,9 @@ class Mission{
         void Banlance(Json::Value root,int & socket_fd_)
         {
             std::cout<<root.toStyledString();
-            WorkIp = root["ip"].asString();
-            WorkPort = root["port"].asString();
-            std::cout<<"WorkIp:"<<WorkIp<<"  "<<"WorkPort:"<<WorkPort<<std::endl;
+            work_ip = root["ip"].asString();
+            work_port = root["port"].asString();
+            std::cout<<"work_ip:"<<work_ip<<"  "<<"work_port:"<<work_port<<std::endl;
         }
 
         //根据用户给的行为来判断需要调用什么函数

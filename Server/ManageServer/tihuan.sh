@@ -11,3 +11,14 @@ find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\b
 find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\baddfd\b|AddFd|g'
 
 find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bSetEpollWait\b|setEpollFd|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bEpollThreadID\b|epoll_thread_id|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bManageServerIp\b|manage_server_ip|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bManageServerPort\b|manage_server_port|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bWorkPort\b|work_port|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bWorkIp\b|work_ip|g'
+

@@ -31,8 +31,11 @@
 #define LOGDIR "log"
 #define MKDIR "mkdir -p "LOGDIR
 
-std::string       WorkIp;
-std::string       WorkPort;
+std::string       work_ip;
+std::string       work_port;
+std::string       manage_server_ip;
+std::string       manage_server_port;
+
 MyDataBase        DataBase;        //数据库
 
 
@@ -42,10 +45,11 @@ void InitServer()
 
     Config config_settings(config_file);
 
-    WorkIp = config_settings.ReadConf("WorkServerIp", WorkIp);
-    WorkPort = config_settings.ReadConf("WorkServerPort", WorkPort);
+    work_ip = config_settings.ReadConf("WorkServerIp", work_ip);
+    work_port = config_settings.ReadConf("WorkServerPort", work_port);
+    manage_server_ip = config_settings.ReadConf("manage_server_ip", manage_server_ip);
+    manage_server_port = config_settings.ReadConf("manage_server_port", manage_server_port);
 
-    std::cout << "WorkIp : " << WorkIp << " WorkPort : " << WorkPort << std::endl;
     system(MKDIR);
     google::InitGoogleLogging("log");
     google::SetStderrLogging(google::INFO); 
@@ -132,14 +136,17 @@ int main( int argc , char * argv[] )  {
     }
 
     InitServer();
-    pthread_t EpollThreadID;
+    pthread_t epoll_thread_id;
     std::map <int, Mission *> socket_mission_map;
     
     //Mission * mission = new Mission[MAXUSERS + 3];
     ThreadPool<Mission> pool(2);
 
-    Epoll e(argv[1] , argv[2]);
-    EpollMission(e , pool ,argv[1] , argv[2] , socket_mission_map);
+    //Epoll e(argv[1] , argv[2]);
+    Epoll e(manage_server_ip.c_str(), manage_server_port.c_str());
+
+    //EpollMission(e , pool ,argv[1] , argv[2] , socket_mission_map);
+    EpollMission(e , pool , manage_server_ip.c_str(),  manage_server_port.c_str(), socket_mission_map);
 
     return EXIT_SUCCESS;
 }
