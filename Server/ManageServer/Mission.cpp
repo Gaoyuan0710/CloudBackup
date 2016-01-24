@@ -53,6 +53,7 @@ class Mission{
         }
 
         //验证账户密码任务
+        //int AccountPasswd(char *root, int & socket_fd){
         int AccountPasswd(Json::Value & root , int & socket_fd_) {
             std::string UserName , Passwd, rootFolder;
             UserName = root["UserName"].asString();
