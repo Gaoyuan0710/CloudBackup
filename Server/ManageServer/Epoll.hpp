@@ -25,7 +25,7 @@
 
 class Epoll{
     public:
-        Epoll(char * ip , char * port):epoll_fd_(-1) , server_ip_(ip) , server_port_(port)  {}
+        Epoll(const char * ip , const char * port):epoll_fd_(-1) , server_ip_(ip) , server_port_(port)  {}
         ~Epoll() {}
 
         int setNonBlock ( int fd )  {
@@ -84,8 +84,8 @@ class Epoll{
     public:
         int epoll_fd_;
         int socket_fd_; //监听用
-        char * server_ip_;
-        char * server_port_;
+        const char * server_ip_;
+        const char * server_port_;
         epoll_event events[MAX_EVENT_NUMBER];
 
 };

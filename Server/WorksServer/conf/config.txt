@@ -1,0 +1,4 @@
+BalanceServerIp = 121.42.144.117
+BalanceServerPort = 12345
+LocalServerIp = 121.42.144.117
+LocalServerPort = 10001

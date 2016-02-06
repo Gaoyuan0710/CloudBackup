@@ -47,17 +47,19 @@ void InitServer()
 
     work_ip = config_settings.ReadConf("WorkServerIp", work_ip);
     work_port = config_settings.ReadConf("WorkServerPort", work_port);
-    manage_server_ip = config_settings.ReadConf("manage_server_ip", manage_server_ip);
-    manage_server_port = config_settings.ReadConf("manage_server_port", manage_server_port);
+    manage_server_ip = config_settings.ReadConf("ManageServerIp", manage_server_ip);
+    manage_server_port = config_settings.ReadConf("ManageServerPort", manage_server_port);
 
     system(MKDIR);
-    google::InitGoogleLogging("log");
-    google::SetStderrLogging(google::INFO); 
+    FLAGS_log_dir = "./log";
+ //   google::SetStderrLogging(google::INFO); 
 
-    google::SetLogDestination(google::INFO,LOGDIR"/INFO_"); //设置 google::INFO 级别的日志存储路径和文件名前缀
-    google::SetLogDestination(google::WARNING,LOGDIR"/WARNING_");   //设置 google::WARNING 级别的日志存储路径和文件名前缀
-    google::SetLogDestination(google::ERROR,LOGDIR"/ERROR_");   //设置 google::ERROR 级别的日志存储路径和文件名前缀
+ //   google::SetLogDestination(google::INFO,LOGDIR"/INFO_"); //设置 google::INFO 级别的日志存储路径和文件名前缀
+ //   google::SetLogDestination(google::WARNING,LOGDIR"/WARNING_");   //设置 google::WARNING 级别的日志存储路径和文件名前缀
+ //   google::SetLogDestination(google::ERROR,LOGDIR"/ERROR_");   //设置 google::ERROR 级别的日志存储路径和文件名前缀
     google::InstallFailureSignalHandler();
+
+    LOG(ERROR) << "ceshi";
 
 
 }
@@ -94,8 +96,8 @@ void RecvFromClient( Epoll & e , const int & socket_fd_ , ThreadPool<T> & pool ,
 }
 
 template<typename T>
-void EpollMission( Epoll & e , ThreadPool<T> & pool ,char * ip , char * port , 
-        std::map <int, Mission *>  &socket_mission_map)  {
+void EpollMission( Epoll & e , ThreadPool<T> & pool ,std::string & ip , std::string & port , 
+        std::map <int, Mission *> & socket_mission_map)  {
     int num;
 //  int socketfds[MaxClientConnection];
     e.CreateTcpSocket();
@@ -130,11 +132,12 @@ std::map <int, int> user_fd_map;
 
 int main( int argc , char * argv[] )  {
 
-    if(argc < 3) {
-        LOG(ERROR) << "Wrong argv";
-        exit(0);
-    }
+    //if(argc < 3) {
+    //    LOG(ERROR) << "Wrong argv";
+    //    exit(0);
+   // }
 
+    google::InitGoogleLogging(argv[0]);
     InitServer();
     pthread_t epoll_thread_id;
     std::map <int, Mission *> socket_mission_map;
@@ -146,7 +149,7 @@ int main( int argc , char * argv[] )  {
     Epoll e(manage_server_ip.c_str(), manage_server_port.c_str());
 
     //EpollMission(e , pool ,argv[1] , argv[2] , socket_mission_map);
-    EpollMission(e , pool , manage_server_ip.c_str(),  manage_server_port.c_str(), socket_mission_map);
+    EpollMission(e , pool , manage_server_ip,  manage_server_port, socket_mission_map);
 
     return EXIT_SUCCESS;
 }

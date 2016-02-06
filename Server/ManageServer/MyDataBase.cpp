@@ -176,6 +176,7 @@ class MyDataBase {
                 std::cout<<"s:"<<*t<<std::endl;
                 files = files + " " + *t;
             }
+            std::cout << "files_len " << files.length() << std::endl; 
             std::cout<<"files:"<<files<<std::endl;
             return files;
         }
