@@ -22,3 +22,13 @@ find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\b
 
 find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bWorkIp\b|work_ip|g'
 
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bUserName\b|user_name|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\bPasswd\b|passwd|g'
+
+find . -regextype posix-egrep -regex ".*\.(cpp|h|hpp)" | xargs perl -pi -e 's|\brootFolder\b|root_folder|g'
+
+
+
+
+
