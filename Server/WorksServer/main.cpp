@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     balance_port_int = atoi(balance_port.c_str());
 
     
-    workServer server(local_ip, local_port_int, balance_ip, balance_port_int);
+    WorkServer server(local_ip, local_port_int, balance_ip, balance_port_int);
     server.Run();
 
     return EXIT_SUCCESS;

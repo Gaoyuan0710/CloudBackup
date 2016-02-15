@@ -47,8 +47,8 @@ void InitServer()
 
     work_ip = config_settings.ReadConf("WorkServerIp", work_ip);
     work_port = config_settings.ReadConf("WorkServerPort", work_port);
-    manage_server_ip = config_settings.ReadConf("manage_server_ip", manage_server_ip);
-    manage_server_port = config_settings.ReadConf("manage_server_port", manage_server_port);
+    manage_server_ip = config_settings.ReadConf("ManageServerIp", manage_server_ip);
+    manage_server_port = config_settings.ReadConf("ManageServerPort", manage_server_port);
 
     system(MKDIR);
     FLAGS_log_dir = "./log";

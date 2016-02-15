@@ -25,8 +25,8 @@
 
 
 /* constructor  */
-workServer::
-workServer(std::string m_ip, int m_port, std::string l_ip, int l_port):
+WorkServer::
+WorkServer(std::string m_ip, int m_port, std::string l_ip, int l_port):
     ip(m_ip), port(m_port), threadpool(10), loadClient(l_ip, l_port)
 {
     /* 初始化服务端socket配置 */
@@ -103,8 +103,8 @@ workServer(std::string m_ip, int m_port, std::string l_ip, int l_port):
 
 
 /* destroy function  close socket fd*/
-workServer::
-~workServer()
+WorkServer::
+~WorkServer()
 {
     close(listen_fd);
     close(epoll_fd);
@@ -114,7 +114,7 @@ workServer::
 
 /* set socket fd nonblocking */
 int
-workServer::
+WorkServer::
 setnonblocking(int fd)
 {
     int old_option = fcntl(fd, F_GETFL);
@@ -127,7 +127,7 @@ setnonblocking(int fd)
 
 /* register sockfd in epoll */
 int 
-workServer::
+WorkServer::
 Register(int fd, bool oneshot)
 {
     epoll_event event;
@@ -146,7 +146,7 @@ Register(int fd, bool oneshot)
 
 /* epoll run */
 int 
-workServer::
+WorkServer::
 Run()
 {
     /* json parse */
@@ -210,13 +210,13 @@ Run()
                 {
                     std::cout << "准备开始上传啦" << std::endl;
                     /* download */
-                    Handler hand = std::make_tuple(workServer::handler_download, sockfd, md5);
+                    Handler hand = std::make_tuple(WorkServer::handler_download, sockfd, md5);
                     threadpool.AddTask(std::move(hand));
                 }else if(mark == 2)
                 {
                     /* upload */
                     std::cout << "upload ..." << std::endl;
-                    Handler hand = std::make_tuple(workServer::handler_upload, sockfd, md5);
+                    Handler hand = std::make_tuple(WorkServer::handler_upload, sockfd, md5);
                     threadpool.AddTask(std::move(hand));
                 }
             }
@@ -228,7 +228,7 @@ Run()
 
 /* download file */
 bool
-workServer::
+WorkServer::
 handler_download(int fd, std::string md5)
 {
     std::cout << "要开始发送文件啦" << std::endl;
@@ -237,7 +237,10 @@ handler_download(int fd, std::string md5)
     /* sendfile transport file */
     
     std::cout << filename << std::endl;
-    int r_fd = open(filename.c_str(), O_RDONLY);
+    std::string absolute_path_name("./file/" + filename);
+
+    //int r_fd = open(filename.c_str(), O_RDONLY);
+    int r_fd = open(absolute_path_name.c_str(), O_RDONLY);
     if(r_fd == -1)
     {
         perror("open file error\n");
@@ -294,14 +297,16 @@ handler_download(int fd, std::string md5)
 
 /* upload file */
 bool
-workServer::
+WorkServer::
 handler_upload(int fd, std::string md5)
 {
     std::cout << "upload:" << fd << " MD:" << md5 << std::endl;
     std::string filename(md5);
     
+    std::string absolute_path_name("./file/" + filename);
     /* open file */
-    int w_fd = open(filename.c_str(), O_WRONLY | O_CREAT, 00700);
+    //int w_fd = open(filename.c_str(), O_WRONLY | O_CREAT, 00700);
+    int w_fd = open(absolute_path_name.c_str(), O_WRONLY | O_CREAT, 00700);
     std::cout << "open file" << std::endl;
     if(w_fd == -1)
     {

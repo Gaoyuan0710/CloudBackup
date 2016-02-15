@@ -43,15 +43,15 @@
 
 enum { maxCon = 10000};
 
-class workServer
+class WorkServer
 {
     public:
         /* 构造函数，初始化ip和端口 , 初始化负载服务器的ip和端口*/
-        workServer(std::string m_ip, int m_port, std::string l_ip, int l_port);
+        WorkServer(std::string m_ip, int m_port, std::string l_ip, int l_port);
 
 
         /* 析构函数，关闭打开的socket */
-        ~workServer();
+        ~WorkServer();
     
         /* server运行函数 */
         int Run();

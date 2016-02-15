@@ -51,8 +51,8 @@ class Mission{
         int AccountPasswd(Json::Value & root , int & socket_fd_) {
             std::string user_name , passwd, root_folder;
 
-            user_name = root["user_name"].asString();
-            passwd = root["passwd"].asString();
+            user_name = root["UserName"].asString();
+            passwd = root["Passwd"].asString();
 
             
             int ret = DataBase.AccountPasswd(user_name , passwd);
@@ -115,8 +115,8 @@ class Mission{
             std::string user_name , passwd , email;
 
 
-            user_name = root["user_name"].asString();
-            passwd = root["passwd"].asString();
+            user_name = root["UserName"].asString();
+            passwd = root["Passwd"].asString();
             email = root["Email"].asString();
 
             int ret = DataBase.Register(user_name , passwd , email);
@@ -258,7 +258,7 @@ class Mission{
             {
                 //返回子服务器信息
                 root["Ip"] = Json::Value(work_ip);
-                root["server_port_"] = Json::Value(work_port);
+                root["Port"] = Json::Value(work_port);
                 root["Have"] = Json::Value(0);
 
 
@@ -300,7 +300,7 @@ class Mission{
             mysql_free_result(res);
 
             root["Ip"] = Json::Value(server_ip);   //子服务器Ip
-            root["server_port_"] = Json::Value(WORKPORT); //子服务器端口
+            root["Port"] = Json::Value(WORKPORT); //子服务器端口
             root["Size"] = Json::Value(file_size);
             root["Md5"] = Json::Value(file_md5_str);
 
