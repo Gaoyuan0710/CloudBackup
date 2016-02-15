@@ -1,22 +1,4 @@
-/*
- * =====================================================================================
- *
- *       Filename:  Client.cpp
- *
- *    Description:  
- *
- *        Version:  1.0
- *        Created:  2015年08月05日 08时36分16秒
- *       Revision:  none
- *       Compiler:  gcc
- *
- *         Author:   (wangweihao), 578867817@qq.com
- *        Company:  xiyoulinuxgroup
- *
- * =====================================================================================
- */
-
-#include "Client.h"
+#include "client.h"
 #include <string>
 #include <cstring>
 #include <fstream>

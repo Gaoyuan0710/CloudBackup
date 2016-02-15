@@ -39,7 +39,7 @@
 /* 线程池 */
 #include "ThreadPool.h"
 
-#include "Client.h"
+#include "client.h"
 
 enum { maxCon = 10000};
 
