@@ -1,21 +1,3 @@
-/*
- * =====================================================================================
- *
- *       Filename:  Server.h
- *
- *    Description:  
- *
- *        Version:  1.0
- *        Created:  2015年08月02日 19时40分28秒
- *       Revision:  none
- *       Compiler:  gcc
- *
- *         Author:   (wangweihao), 578867817@qq.com
- *        Company:  xiyoulinuxgroup
- *
- * =====================================================================================
- */
-
 #ifndef _SERVER_H_
 #define _SERVER_H_
 
@@ -41,13 +23,13 @@
 
 #include "client.h"
 
-enum { maxCon = 10000};
+enum { MaxConnctionNum = 10000};
 
 class WorkServer
 {
     public:
         /* 构造函数，初始化ip和端口 , 初始化负载服务器的ip和端口*/
-        WorkServer(std::string m_ip, int m_port, std::string l_ip, int l_port);
+        WorkServer(std::string local_ip, int local_port, std::string balance_ip, int balance_port);
 
 
         /* 析构函数，关闭打开的socket */
@@ -57,8 +39,8 @@ class WorkServer
         int Run();
     
         /* 上传and下载 */
-        static bool handler_upload(int fd, std::string json);
-        static bool handler_download(int fd, std::string json); 
+        static bool HandlerUpload(int fd, std::string json);
+        static bool HandlerDownload(int fd, std::string json); 
     
     private:
         /* register登记连接的socket */
@@ -75,7 +57,7 @@ class WorkServer
 
         /* 服务端结构体 */
         struct sockaddr_in server;
-        struct epoll_event events[maxCon];
+        struct epoll_event events[MaxConnctionNum];
         struct epoll_event ev;
 
         /* socket */

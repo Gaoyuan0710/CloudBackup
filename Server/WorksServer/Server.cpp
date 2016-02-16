@@ -26,8 +26,8 @@
 
 /* constructor  */
 WorkServer::
-WorkServer(std::string m_ip, int m_port, std::string l_ip, int l_port):
-    ip(m_ip), port(m_port), threadpool(10), loadClient(l_ip, l_port)
+WorkServer(std::string local_ip, int local_port, std::string balance_ip, int balance_port):
+    ip(local_ip), port(local_port), threadpool(10), loadClient(balance_ip, balance_port)
 {
     /* 初始化服务端socket配置 */
     bzero(&server, sizeof(server));
@@ -96,7 +96,7 @@ WorkServer(std::string m_ip, int m_port, std::string l_ip, int l_port):
     }
 
     /* create epoll fd and Register fd epoll collection */
-    epoll_fd = epoll_create(maxCon);
+    epoll_fd = epoll_create(MaxConnctionNum);
     Register(listen_fd, false);
 }
 
@@ -160,7 +160,7 @@ Run()
     /* main loop */
     while(1)
     {
-        int ret = epoll_wait(epoll_fd, events, maxCon, -1);
+        int ret = epoll_wait(epoll_fd, events, MaxConnctionNum, -1);
         if(ret < 0)
         {
             if(errno == EINTR)
@@ -210,13 +210,13 @@ Run()
                 {
                     std::cout << "准备开始上传啦" << std::endl;
                     /* download */
-                    Handler hand = std::make_tuple(WorkServer::handler_download, sockfd, md5);
+                    Handler hand = std::make_tuple(WorkServer::HandlerDownload, sockfd, md5);
                     threadpool.AddTask(std::move(hand));
                 }else if(mark == 2)
                 {
                     /* upload */
                     std::cout << "upload ..." << std::endl;
-                    Handler hand = std::make_tuple(WorkServer::handler_upload, sockfd, md5);
+                    Handler hand = std::make_tuple(WorkServer::HandlerUpload, sockfd, md5);
                     threadpool.AddTask(std::move(hand));
                 }
             }
@@ -229,7 +229,7 @@ Run()
 /* download file */
 bool
 WorkServer::
-handler_download(int fd, std::string md5)
+HandlerDownload(int fd, std::string md5)
 {
     std::cout << "要开始发送文件啦" << std::endl;
     std::cout << "downdaload:" << fd << " MD:" << md5 << std::endl;
@@ -298,7 +298,7 @@ handler_download(int fd, std::string md5)
 /* upload file */
 bool
 WorkServer::
-handler_upload(int fd, std::string md5)
+HandlerUpload(int fd, std::string md5)
 {
     std::cout << "upload:" << fd << " MD:" << md5 << std::endl;
     std::string filename(md5);

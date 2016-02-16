@@ -14,7 +14,7 @@
 #include <arpa/inet.h>
 #include <string>
 #include <thread>
-#include "getInfo.h"
+#include "get_info.h"
 
 
 /* 定时器执行函数 */

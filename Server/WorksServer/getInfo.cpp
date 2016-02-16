@@ -14,7 +14,7 @@
  *
  */
 
-#include "getInfo.h"
+#include "get_info.h"
 
 std::string
 getDate::getInfo(int types)

@@ -1,19 +1,3 @@
-/*
- * (C) 2007-2015 Alibaba Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
- *
- * getInfo.h -- 
- *
- * Version: 1.0  2015年08月17日 16时44分33秒
- *
- * Authors:
- *     wangweihao (), wangweihao@xiyoulinux.org
- *
- */
-
 /* 
 * 获取此台机器的负载信息类
 * 可以获取
