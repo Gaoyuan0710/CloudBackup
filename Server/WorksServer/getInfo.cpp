@@ -47,7 +47,7 @@ getDate::getCpuInfo()
     FILE *fp;
     char buffer[512];
     /* 通过top命令获得cpu使用率, -n表示只执行一次 */
-    std::string command("top -n 1 | grep Cpu | awk \'{print}\'");
+    std::string command("top -n 1 | grep Cpu | awk \'{print}\' > null");
     fp = popen(command.c_str(), "r");
     if(fp == NULL)
     {
@@ -66,7 +66,7 @@ getDate::getMemInfo()
     FILE *fp;
     char buffer[512];
     /* 通过top命令获得memory使用率, -n表示只执行一次 */
-    std::string command("top -n 1 | grep Mem | awk \'{print}\'");
+    std::string command("top -n 1 | grep Mem | awk \'{print}\' > null");
     fp = popen(command.c_str(), "r");
     if(fp == NULL)
     {
@@ -85,7 +85,7 @@ getDate::getNetInfo()
     FILE *fp;
     char buffer[512];
     /* net  sar */
-    std::string command("sar -n DEV 1 1 | grep wlan0 | grep 平均时间 | awk \'{print}\'");
+    std::string command("sar -n DEV 1 1 | grep wlan0 | grep 平均时间 | awk \'{print}\' > null");
     fp = popen(command.c_str(), "r");
     if(fp == NULL)
     {
@@ -104,7 +104,7 @@ getDate::getDiskInfo()
     FILE *fp;
     char buffer[512];
     /* iostat */
-    std::string command("iostat | grep sda | awk \'{print}\'");
+    std::string command("iostat | grep sda | awk \'{print}\' > null");
     fp = popen(command.c_str(), "r");
     if(fp == NULL)
     {

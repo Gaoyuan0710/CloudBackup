@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "Server.h"
+#include "server.h"
 #include <sys/sendfile.h>
 #include <sys/stat.h>
 #include <json/json.h>

@@ -13,7 +13,7 @@
 #define HOST "localhost"
 #define DATABASE "CloudBackup"
 #define USER "root"
-#define PASSWD "linux__2006"
+#define PASSWD "jk213"
 #define PORT 3306
 
 class MyDataBase {

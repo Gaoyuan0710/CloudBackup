@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "Server.h"
+#include "server.h"
 #include "./common/config.h"
 
 int main(int argc, char *argv[])
