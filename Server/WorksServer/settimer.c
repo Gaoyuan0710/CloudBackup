@@ -1,21 +1,3 @@
-/*
- * =====================================================================================
- *
- *       Filename:  settimer.c
- *
- *    Description:  
- *
- *        Version:  1.0
- *        Created:  2015年08月05日 08时19分04秒
- *       Revision:  none
- *       Compiler:  gcc
- *
- *         Author:   (wangweihao), 578867817@qq.com
- *        Company:  xiyoulinuxgroup
- *
- * =====================================================================================
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>

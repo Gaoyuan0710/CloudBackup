@@ -1,21 +1,3 @@
-/*
- * =====================================================================================
- *
- *       Filename:  Server.cpp
- *
- *    Description:  
- *
- *        Version:  1.0
- *        Created:  2015年08月02日 19时55分10秒
- *       Revision:  none
- *       Compiler:  gcc
- *
- *         Author:   (wangweihao), 578867817@qq.com
- *        Company:  xiyoulinuxgroup
- *
- * =====================================================================================
- */
-
 #include "server.h"
 #include <sys/sendfile.h>
 #include <sys/stat.h>

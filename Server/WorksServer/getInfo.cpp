@@ -1,19 +1,3 @@
-/*
- * (C) 2007-2015 Alibaba Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
- *
- * getInfo.cpp -- 
- *
- * Version: 1.0  2015年08月17日 16时53分25秒
- *
- * Authors:
- *     wangweihao (), wangweihao@xiyoulinux.org
- *
- */
-
 #include "get_info.h"
 
 std::string
