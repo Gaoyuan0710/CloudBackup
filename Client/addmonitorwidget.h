@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: addmonitor.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年09月28日 星期一 12时50分55秒
- =======================================================*/
-
 #ifndef ADDMONITORWIDGET_H
 #define ADDMONITORWIDGET_H
 

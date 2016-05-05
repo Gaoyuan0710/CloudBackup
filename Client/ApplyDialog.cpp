@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: ApplyDialog.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月04日 星期二 08时01分21秒
- =======================================================*/
-
 #include"applydialog.h"
 #include"connectserv.h"
 

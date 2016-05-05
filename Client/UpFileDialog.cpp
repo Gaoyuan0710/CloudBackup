@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: UpFileDialog.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月28日 星期二 21时09分41秒
- =======================================================*/
-
 #include"upfiledialog.h"
 #include"connectserv.h"
 
@@ -20,7 +12,7 @@ UpFileDialog::UpFileDialog(QFileDialog* parent) : QFileDialog(parent)
     //设置当前目录
     this->setDirectory(".");
     //文件过滤器
-    this->setFilter("*");
+    //this->setFilter("*");
 
     connect(this,SIGNAL(currentChanged(const QString&)),this,SLOT(GetSelectedPath(const QString&)));
     connect(this,SIGNAL(accepted()),this,SLOT(UpLoadFile()));

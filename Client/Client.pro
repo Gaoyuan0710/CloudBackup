@@ -3,10 +3,11 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = backup_client
 DEPENDPATH += .
 INCLUDEPATH += .
 LIBS += -ljson
+QT += widgets
 
 # Input
 HEADERS += addmonitorwidget.h \

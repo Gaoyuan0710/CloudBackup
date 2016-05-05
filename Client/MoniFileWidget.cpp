@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: MoniFileWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月30日  星期四 21时06分26秒
- =======================================================*/
-
 #include"monifilewidget.h"
 #include"myinclude.h"
 

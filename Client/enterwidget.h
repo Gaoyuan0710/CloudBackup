@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: enterwidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月02日 星期日 20时51分15秒
- =======================================================*/
-
 #ifndef ENTERWIDGET_H
 #define ENTERWIDGET_H
 

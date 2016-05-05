@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: filewidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月23日 星期四 10时06分29秒
- =======================================================*/
-
 #ifndef FILEWIDGET_H
 #define FILEWIDGET_H
 

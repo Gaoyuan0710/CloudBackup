@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: upfiledialog.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月28日 星期二 20时57分27秒
- =======================================================*/
-
 #ifndef UPFILEDIALOG_H
 #define UPFILEDIALOG_H
 

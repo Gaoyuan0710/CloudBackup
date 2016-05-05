@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: FileListWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月23日 星期四 07时48分29秒
- =======================================================*/
-
 #include"filelistwidget.h"
 
 #include<QLineEdit>

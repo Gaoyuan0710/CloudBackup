@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: connectServ.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月05日 星期三 16时13分52秒
- =======================================================*/
-
 #include<QString>
 
 #include<iostream>

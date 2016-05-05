@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: LoginWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月02日 星期日 10时55分36秒
- =======================================================*/
-
 #include"loginwidget.h"
 #include"connectserv.h"
 
@@ -28,6 +20,13 @@ using  namespace std;
 
 LoginWidget :: LoginWidget(QWidget* parent):QWidget(parent)
 {
+    //+++
+    QPalette palette;
+    palette.setBrush(QPalette::Background,QBrush(QPixmap(":/image/2.png")));
+    this->setPalette(palette);
+    this->setAutoFillBackground(true);
+    //+++
+
     QFont    font;
     font.setPointSize(10);
     warnLabel = new QLabel;
@@ -59,17 +58,18 @@ LoginWidget :: LoginWidget(QWidget* parent):QWidget(parent)
     loginPushButton->setFlat(false);
     loginPushButton->setStyleSheet("background: #1E90FF;color:white;");
     connect(loginPushButton,SIGNAL(clicked()),this,SLOT(Loginning()));
-
+/*+++
     hidePushButton = new QPushButton(this);
     hidePushButton->setFlat(true);
     //透明
     hidePushButton->setStyleSheet("background: transparent");
     hidePushButton->setIcon(QIcon(":/image/hide.png"));
     connect(hidePushButton,SIGNAL(clicked()),this,SLOT(HideWidget()));
-
+*/
     settingButton = new QToolButton(this);
     settingButton->setIcon(QIcon(":/image/set.png"));
     settingButton->setStyleSheet("border-style: none;");
+    settingButton->hide();//+++
 
     applyDialog = new ApplyDialog;
     connect(applyPushButton,SIGNAL(clicked()),this,SLOT(ShowApplyDialog()));
@@ -91,9 +91,10 @@ LoginWidget :: LoginWidget(QWidget* parent):QWidget(parent)
  //   mainLayout->addStretch();
     mainLayout->addLayout(leftLayout);
     mainLayout->addWidget(loginPushButton);
-
+/*+++
     hidePushButton->setGeometry(288,105,15,40);
     hidePushButton->setIconSize(QSize(15,40));
+*/
     settingButton->setGeometry(275,0,25,25);
     settingButton->setIconSize(QSize(25,25));
     connect(settingButton,SIGNAL(clicked()),this,SLOT(SetServDialog()));
@@ -123,6 +124,8 @@ void LoginWidget::Loginning()
     string  jsonStr;
 
     qDebug()<<servIp<<servPort;
+    servIp = "121.42.144.117";
+    servPort = "10000";
 
     QString     qstr;
     string      name,passwd;
@@ -203,6 +206,7 @@ void LoginWidget::Loginning()
                 strjson = QString::fromStdString(jsonStr);
                 emit LoginOk(servIp,servPort,sockfd,QString::fromStdString(name),strjson);
                 emit LoginClose();
+                this->hide();//+++
                 break;
             case 1:
                 cout<<"1:"<<status<<endl;

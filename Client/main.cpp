@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: main.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月23日 星期四 10时15分07秒
- =======================================================*/
-
 #include"mainwindow.h"
 #include"enterwidget.h"
 #include"addmonitorwidget.h"
@@ -31,10 +23,12 @@ int main(int argc,char* argv[])
     
     MainWindow    *mainWindow = new MainWindow;
 
-    EnterWidget   enterWidget;
+//    EnterWidget   enterWidget;
 //    mainWindow->mainSplitter->show();
+    LoginWidget loginWidget;
+    loginWidget.show();
     
-    QObject::connect(enterWidget.loginWidget,SIGNAL(LoginOk(QString,QString,int,QString,QString)),mainWindow,SLOT(ShowMainWindow(QString,QString,int,QString,QString)));
+    QObject::connect(&loginWidget,SIGNAL(LoginOk(QString,QString,int,QString,QString)),mainWindow,SLOT(ShowMainWindow(QString,QString,int,QString,QString)));
 
     
     return app.exec();

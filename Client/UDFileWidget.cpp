@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: UDFileWidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月11日 星期二 14时53分45秒
- =======================================================*/
-
 #include"udfilewidget.h"
 #include"uditemwidget.h"
 #include"connectserv.h"

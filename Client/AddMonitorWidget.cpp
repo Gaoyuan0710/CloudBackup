@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: AddMonitorWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年09月28日 星期一 15时55分25秒
- =======================================================*/
-
 #include"addmonitorwidget.h"
 
 #include<QHBoxLayout>
@@ -75,7 +67,7 @@ AddMonitorWidget::AddMonitorWidget(QWidget* parent):QWidget(parent)
     mainlayout->addLayout(rowlayout6);
     this->setLayout(mainlayout);
 
-    this->ShowFolder("/home/lyh");
+    this->ShowFolder("/home/");
 
     connect(listwidget,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(ShowFolderSlot(QListWidgetItem*)));
     connect(cancelbutton,SIGNAL(clicked()),this,SLOT(close()));
@@ -254,7 +246,7 @@ void AddMonitorWidget::ShowFolder(string path)
         if(name != "." && name != ".." && name[0] == '.')
             continue;
         QListWidgetItem*  item = new QListWidgetItem;
-        item->setSizeHint(QSize(0,40));
+        item->setSizeHint(QSize(0,50));
         FileItem    *itemWidget = new FileItem(this);
         itemWidget->setItem(QString::fromStdString(name),QString::fromStdString(par));
         if(name == ".")

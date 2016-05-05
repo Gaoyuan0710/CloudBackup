@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: uditemwidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月13日 星期四 13时56分34秒
- =======================================================*/
-
 #ifndef UDITEMWIDGET_H
 #define UDITEMWIDGET_H
 

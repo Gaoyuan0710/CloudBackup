@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: MainWindow.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月29日 星期三 14时25分20秒
- =======================================================*/
-
 #include"mainwindow.h"
 #include"connectserv.h"
 

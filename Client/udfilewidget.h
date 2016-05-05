@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: udfilewidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月10日 星期一 16时21分35秒
- =======================================================*/
-
 #ifndef UDFILEWIDGET_H
 #define UDFILEWIDGET_H
 

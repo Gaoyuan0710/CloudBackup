@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: DownFileDialog.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月28日 星期二 10时01分56秒
- =======================================================*/
-
 #include"downfiledialog.h"
 #include"connectserv.h"
 
@@ -53,6 +45,7 @@ void DownFileDialog::LinePathShow(const QString &path)
 /* 下载文件 */
 void DownFileDialog::DownLoadFile()
 {
+    cout<<"down";
     //关闭对话框
     this->close();
     extern int   sockFd;

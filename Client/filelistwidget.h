@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: FilebrowseWidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月22日 星期三 16时04分08秒
- =======================================================*/
-
 #ifndef FILELISTWIDGET_H
 #define FILELISTWIDGET_H
 

@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: applydialog.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月04日 星期二 01时03分39秒
- =======================================================*/
-
 #ifndef APPLYDIALOG_H
 #define APPLYDIALOG_H
 

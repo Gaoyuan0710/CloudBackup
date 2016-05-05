@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: finotify.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年10月22日 星期四 18时58分37秒
- =======================================================*/
-
 #ifndef FINOTIFY_H
 #define FINOTIFY_H
 

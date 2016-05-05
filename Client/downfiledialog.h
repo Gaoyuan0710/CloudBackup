@@ -1,10 +1,3 @@
-/*======================================================
-    > File Name: downfiledialog.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月28日 星期二 09时52分33秒
- =======================================================*/
 
 #ifndef DOWNFILEDIALOG_H
 #define DOWNFILEDIALOG_H

@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: FileWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月23日 星期四 10时12分12秒
- =======================================================*/
-
 #include"filewidget.h"
 #include"downfiledialog.h"
 #include"upfiledialog.h"

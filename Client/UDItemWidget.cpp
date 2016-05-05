@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: UDItemWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月13日 星期四 15时23分34秒
- =======================================================*/
-
 #include"uditemwidget.h"
 #include"myinclude.h"
 

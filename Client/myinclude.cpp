@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: myinclude.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年12月08日 星期二 14时07分21秒
- =======================================================*/
-
 #include"myinclude.h"
 
 string getRoadFolder(string s)

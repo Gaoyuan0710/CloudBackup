@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: loginwidget.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月02日 星期日 09时08分13秒
- =======================================================*/
-
 #ifndef LOGINWIDGET_H
 #define LOGINWIDGET_H
 

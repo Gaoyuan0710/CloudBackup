@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: mainwindow.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月29日 星期三 14时07分53秒
- =======================================================*/
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

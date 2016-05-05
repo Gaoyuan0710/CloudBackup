@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: FInotify.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年10月24日 星期六 20时39分54秒
- =======================================================*/
-
 #include"myinclude.h"
 #include"finotify.h"
 

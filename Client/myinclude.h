@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: cinclude.h
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年08月12日 星期三 09时19分30秒
- =======================================================*/
-
 #ifndef MYINCLUDE_H
 #define MYCINCLUDE_H
 

@@ -1,11 +1,3 @@
-/*======================================================
-    > File Name: MonitorWidget.cpp
-    > Author: lyh
-    > E-mail:  
-    > Other :  
-    > Created Time: 2015年07月30日 星期四 16时27分08秒
- =======================================================*/
-
 #include"monitorwidget.h"
 #include"addmonitorwidget.h"
 
