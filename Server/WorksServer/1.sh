@@ -18,6 +18,6 @@
 #===============================================================================
 
 
-g++ main.cpp Server.cpp Client.cpp getInfo.cpp ./common/config.cpp -ljson -lpthread -std=c++11
+g++ main.cpp Server.cpp Client.cpp getInfo.cpp ./common/config.cpp -ljson -lpthread -std=c++11 -o workServer
 
 

@@ -225,13 +225,15 @@ HandlerDownload(int fd, std::string md5)
     int r_fd = open(absolute_path_name.c_str(), O_RDONLY);
     if(r_fd == -1)
     {
+        std::cout << "file name is " << absolute_path_name << std::endl;
         perror("open file error\n");
         exit(1);
     }
     struct stat st;
     
     std::cout << "stat" << std::endl;
-    long int size = stat(filename.c_str(), &st);
+    //long int size = stat(filename.c_str(), &st);
+    long int size = stat(absolute_path_name.c_str(), &st);
     if(size < 0)
     {
         perror("gain file stat error\n");
