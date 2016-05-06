@@ -1,0 +1,4 @@
+tags
+Server/ManageServer/log/*
+Server/WorkServer/log/*
+Server/WorkServer/file/*

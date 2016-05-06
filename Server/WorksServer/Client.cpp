@@ -8,7 +8,7 @@
 /* 初始化监控本地负载的client */
 
 static int loadServer_fd;
-std::ifstream in("./Log/loadInfo.txt");
+std::ifstream in("./log/loadInfo.txt");
 
 /* 定时器处理定时事件，发送给负载server自己的负载信息 */
 void 
