@@ -147,7 +147,7 @@ void AddMonitorWidget::okSlot()
     QString  stime = time.toString("yyyy-MM-dd|hh:mm:ss|ddd");
 
     ofstream   out;
-    out.open("./etc/lyh/record.txt",ios::app);
+    out.open("./etc/gaoyuan/record.txt",ios::app);
     set<string>::iterator it;
     for(it = fileSet.begin();it != fileSet.end();it++)
     {
@@ -214,7 +214,7 @@ void AddMonitorWidget::okSlot()
         filter.idate = stime.toStdString();
 
         //拷贝监控文件的副本
-        string  command = "cp -r " + (*it) + "  ./etc/lyh" + getRoadFolder(*it);
+        string  command = "cp -r " + (*it) + "  ./etc/gaoyuan" + getRoadFolder(*it);
         system(command.c_str()); 
 
         emit(AddMonitorItemSig(*it,filter));

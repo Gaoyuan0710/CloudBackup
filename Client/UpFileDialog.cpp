@@ -12,7 +12,7 @@ UpFileDialog::UpFileDialog(QFileDialog* parent) : QFileDialog(parent)
     //设置当前目录
     this->setDirectory(".");
     //文件过滤器
-    //this->setFilter("*");
+    this->setFilter("*");
 
     connect(this,SIGNAL(currentChanged(const QString&)),this,SLOT(GetSelectedPath(const QString&)));
     connect(this,SIGNAL(accepted()),this,SLOT(UpLoadFile()));

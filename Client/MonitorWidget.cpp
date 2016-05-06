@@ -20,7 +20,7 @@ MonitorWidget::MonitorWidget(QTabWidget* parent):QTabWidget(parent)
     InotifyFilter               itmp;
     string       s,sname;
     int          b;
-    ifstream     in("./etc/lyh/record.txt");    //监控文件
+    ifstream     in("./etc/gaoyuan/record.txt");    //监控文件
     while(!in.eof())
     {
         in>>s;

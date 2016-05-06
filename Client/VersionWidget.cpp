@@ -58,7 +58,7 @@ void VersionItemWidget::versionItemInit(QString type,QString dsc,QString dst)
 VersionWidget::VersionWidget(QListWidget* parent):QListWidget(parent)
 {
     string      type,dsc,dst;
-    ifstream    in("./etc/lyh/alter.txt");
+    ifstream    in("./etc/gaoyuan/alter.txt");
     while(!in.eof())
     {
         in>>type;

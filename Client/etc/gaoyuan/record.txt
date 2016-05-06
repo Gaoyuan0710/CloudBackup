@@ -1,0 +1,5 @@
+
+/home/gaoyuan/Music null null null null null 0 0 2015-12-10|10:26:33|??
+/home/gaoyuan/test/hello 2015.5.12 2015.9.12 cpp 500 1000 0 1 2015-12-10|10:27:35|??
+/home//gaoyuan/Downloads/../../gaoyuan/Desktop/../Desktop/testNotify null null null null null 1 0 2016-05-05|22:01:45|Thu
+/home//gaoyuan/Desktop/testNotify null null null null null 0 0 2016-05-05|22:02:02|Thu

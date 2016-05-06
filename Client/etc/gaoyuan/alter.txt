@@ -1,0 +1,5 @@
+add /home//gaoyuan/Desktop/testNotify /home//gaoyuan/Desktop/testNotify/123
+add /home//gaoyuan/Desktop/testNotify /home//gaoyuan/Desktop/testNotify/Untitled Folder
+add /home//gaoyuan/Desktop/testNotify /home//gaoyuan/Desktop/testNotify/testFile1
+add /home//gaoyuan/Desktop/testNotify /home//gaoyuan/Desktop/testNotify/123
+modify /home//gaoyuan/Desktop/testNotify/123 1462511334

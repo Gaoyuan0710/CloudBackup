@@ -66,14 +66,14 @@ void FInotify::InotifyEvent(struct inotify_event*  i)
         return;
 
     //旧文件
-    string  oldfile = "./etc/lyh" + getRoadFolder(it->second) + "/" + tmpname;
+    string  oldfile = "./etc/gaoyuan" + getRoadFolder(it->second) + "/" + tmpname;
 
     //命令
     string  command;
 
     //更新变更记录
     ofstream   out;
-    out.open("./etc/lyh/alter.txt",ios::app);
+    out.open("./etc/gaoyuan/alter.txt",ios::app);
 
     //时间秒数
     time_t     t;
@@ -88,9 +88,9 @@ void FInotify::InotifyEvent(struct inotify_event*  i)
     if( (i->mask & IN_MODIFY) && (i->len > 0 ) )
     {
         cout<<"修改文件："<<file<<endl;
-        command = "cp " + oldfile + " " + "./etc/lyh/history/" + nowtime;
+        command = "cp -r" + oldfile + " " + "./etc/gaoyuan/history/" + nowtime;
         ret = system(command.c_str());
-        command = "cp " + file + " " + oldfile;
+        command = "cp -r" + file + " " + oldfile;
         ret = system(command.c_str());
 
         type = "modify";
@@ -108,7 +108,7 @@ void FInotify::InotifyEvent(struct inotify_event*  i)
             cout<<"创建目录："<<file<<endl;
         else
             cout<<"创建文件："<<file<<endl;
-        command = "cp " + file + " " + oldfile;
+        command = "cp -r" + file + " " + oldfile;
         ret = system(command.c_str());
 
         type = "add";
@@ -125,7 +125,7 @@ void FInotify::InotifyEvent(struct inotify_event*  i)
             cout<<"删除目录："<<file<<endl;
         else
             cout<<"删除文件："<<file<<endl;
-        command = "mv " + oldfile + " " + "./etc/lyh/recycle/" + nowtime;
+        command = "mv " + oldfile + " " + "./etc/gaoyuan/recycle/" + nowtime;
         ret = system(command.c_str());
 
         type = "delete";
